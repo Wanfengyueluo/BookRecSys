@@ -13,8 +13,9 @@ import java.util.Properties;
 public class Application {
 	public static void main(String[] args) {
 
-		String brokers = "192.168.2.88:9092"; // Kafka端口
-		String zookeepers = "192.168.2.88:2181"; // Zookeeper端口
+		String brokers = "book:9092"; // Kafka端口
+		String zookeepers = "book:2181"; // Zookeeper端口
+
 
 		// 定义输入和输出的topic
 		String from = "log";
