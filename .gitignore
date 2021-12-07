@@ -1,0 +1,4 @@
+target/
+book-server/logFile.*
+*.iml
+.idea/

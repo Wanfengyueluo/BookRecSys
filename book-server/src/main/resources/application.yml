@@ -1,0 +1,31 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://192.168.2.88:27017/recommender
+#    elasticsearch:
+#      cluster-name: wan-elasticsearch
+#      cluster-nodes: 192.168.2.2:9300
+
+  redis:
+    port: 6379
+    host: 192.168.2.88
+    timeout: 5000
+    database: 0
+    password:
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java
+server:
+  port: 8080
+
+swagger:
+  title: 基于大数据技术的图书推荐系统RESTful APIs
+  description: 使用Swagger2构建的Api文档
+  version: 1.0
+  terms-of-service-url: https://github.com/Wanfengyueluo/BookRecommenderSystem
+  contact:
+    name: wanfeng
+    email: wanfengyueluo@qq.com
+  base-package: com.wan
+  base-path: /**
