@@ -8,6 +8,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +22,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 	@Autowired
 	UserService userService;
+//
+//
+//	@ApiOperation(value = "获取所有用户")
+//	@GetMapping("/api/users")
+//	/**
+//	 * @description: 返回系统中所有用户
+//	 * @param
+//	 * @return com.wan.Result.Result
+//	 */
+//	public Result getAllUser() {
+//		return userService.getAllUser();
+//	}
 
 	@ApiOperation(value = "用户登录")
 	@ApiImplicitParam(name = "user", value = "用户实体 user", required = true, dataType = "User")
@@ -34,6 +47,8 @@ public class UserController {
 		return userService.findUser(user);
 	}
 
+
+
 	@ApiOperation(value = "用户注册")
 	@ApiImplicitParam(name = "user", value = "实体 user", required = true, dataType = "User")
 	@PostMapping("/api/register")
@@ -45,6 +60,8 @@ public class UserController {
 	public Result registerUser(@RequestBody User user) {
 		return userService.registerUser(user);
 	}
+
+
 
 	@ApiOperation(
 			value = "用户对书籍评分",
@@ -59,6 +76,8 @@ public class UserController {
 	public Result bookRating(@RequestBody Receive receive) {
 		return userService.bookRating(receive);
 	}
+
+
 
 	@ApiOperation(value = "书籍收藏")
 	@ApiImplicitParam(name = "receive", value = "实体 receive", required = true, dataType = "Receive")

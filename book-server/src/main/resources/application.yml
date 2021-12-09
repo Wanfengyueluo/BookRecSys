@@ -17,8 +17,9 @@ spring:
       enabled: true
       additional-paths: src/main/java
 server:
-  port: 8080
+  port: 9090
 
+# 地址 http://localhost:{server.port}/swagger-ui.html
 swagger:
   title: 基于大数据技术的图书推荐系统RESTful APIs
   description: 使用Swagger2构建的Api文档

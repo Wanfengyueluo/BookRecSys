@@ -28,18 +28,16 @@ import java.util.List;
 @Component
 public class UserDao {
 
+	private static Logger logger = LoggerFactory.getLogger(UserDao.class.getName());
 	@Autowired
 	MongoTemplate mongoTemplate;
-
 	@Autowired
 	StringRedisTemplate redisTemplate;
 
-	private static Logger logger = LoggerFactory.getLogger(UserDao.class.getName());
-
 	/**
-	 * @description: 判断当该用户是否存在
 	 * @param user
 	 * @return
+	 * @description: 判断当该用户是否存在
 	 */
 	public Boolean userIsexist(User user) {
 		boolean flag = false;
@@ -55,10 +53,25 @@ public class UserDao {
 		return flag;
 	}
 
+
 	/**
-	 * @description: 根据用户名和密码查询该用户，如果该用户存在推荐列表就将该用户对应推荐列表存入Redis
+	 * @param
+	 * @return
+	 * @description: 查询所有用户
+	 */
+	public Result getAllUser() {
+		List<User> users = mongoTemplate.findAll(User.class);
+
+		if (users.size() > 0) {
+			return new Result(ResultCode.SUCCESS.getCode(), "登录成功!", users);
+		}
+		return new Result(ResultCode.FAIL.getCode(), "登录失败！");
+	}
+
+	/**
 	 * @param user
 	 * @return
+	 * @description: 根据用户名和密码查询该用户，如果该用户存在推荐列表就将该用户对应推荐列表存入Redis
 	 */
 	public Result findUser(User user) {
 		List<User> users = mongoTemplate.findAll(User.class);
@@ -76,9 +89,9 @@ public class UserDao {
 	}
 
 	/**
-	 * @description: 将对应userId的推荐列表存入Redis
 	 * @param userId
 	 * @return
+	 * @description: 将对应userId的推荐列表存入Redis
 	 */
 	private void loadInRedis(int userId) {
 		Query query = new Query();
@@ -98,9 +111,9 @@ public class UserDao {
 	}
 
 	/**
-	 * @description:判断用户是否注册成功
 	 * @param user
 	 * @return
+	 * @description:判断用户是否注册成功
 	 */
 	public Result registerUser(User user) {
 		if (userIsexist(user)) {
@@ -116,26 +129,28 @@ public class UserDao {
 	}
 
 	/**
-	 * @description: 将书籍的评分记录存入MongoDb和Redis
 	 * @param receive userId bookId score
 	 * @return
+	 * @description: 将书籍的评分记录存入MongoDb和Redis
 	 */
 	public Result bookRating(Receive receive) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("userId").is(receive.getUserId()));
 		List<User> users = mongoTemplate.find(query, User.class);
-		//    boolean isRating = false;
+		boolean isRating = false;
+		User user = null;
 		if (users.size() > 0) {
-			User user = users.get(0);
-      /*      for (int j = 0; j < user.getScoreRecord().size(); j++) {
-        if (user.getScoreRecord().get(j).getBookId() == receive.getBookId()) {
-          isRating = true;
-          break;
-        }
-      }*/
-      /*      if (isRating) {
-        return new Result(ResultCode.FAIL.getCode(), "已经评过了！");
-      } else {*/
+			user = users.get(0);
+			for (int j = 0; j < user.getScoreRecord().size(); j++) {
+				if (user.getScoreRecord().get(j).getBookId() == receive.getBookId()) {
+					isRating = true;
+					break;
+				}
+			}
+		}
+		if (isRating) {
+			return new Result(ResultCode.FAIL.getCode(), "已经评过了！");
+		} else {
 			redisTemplate
 					.opsForList()
 					.rightPush(
@@ -153,7 +168,7 @@ public class UserDao {
 			return new Result(ResultCode.SUCCESS.getCode(), "评分成功!");
 		}
 		//    else {
-		return new Result(ResultCode.FAIL.getCode(), "评分失败!");
+//		return new Result(ResultCode.FAIL.getCode(), "评分失败!");
 		//    }
 	}
 
@@ -177,9 +192,9 @@ public class UserDao {
 	}
 
 	/**
-	 * @description:收藏书籍
 	 * @param receive userId bookId
 	 * @return
+	 * @description:收藏书籍
 	 */
 	public Result bookFavorite(Receive receive) {
 		Query query = new Query();

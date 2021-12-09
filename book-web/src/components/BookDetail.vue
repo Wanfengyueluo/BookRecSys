@@ -126,6 +126,7 @@ export default {
             )
             .then(res => {
               if (res.data.code == 200) {
+                console.log(res);
                 //获取实时用户推荐列表
                 this.$http
                   .get("/api/books/streamRecs", {

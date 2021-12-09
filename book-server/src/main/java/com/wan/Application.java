@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @date 2021/3/22 20:15
  */
 @SpringBootApplication
-@EnableSwagger2Doc
+//@EnableSwagger2Doc
 public class Application {
 	public static void main(String[] args) {
 		// 这句不加，虚拟机上项目无法启动

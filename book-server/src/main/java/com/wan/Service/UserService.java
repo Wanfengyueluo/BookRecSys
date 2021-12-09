@@ -21,6 +21,10 @@ public class UserService {
 		return userDao.findUser(user);
 	}
 
+	public Result getAllUser() {
+		return userDao.getAllUser();
+	}
+
 	public Result registerUser(User user) {
 		return userDao.registerUser(user);
 	}

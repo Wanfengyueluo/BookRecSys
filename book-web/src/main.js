@@ -14,7 +14,8 @@ import axios from 'axios'
 import './assets/css/global.css'
 Vue.config.productionTip = false
     // axios.defaults.baseURL = "http://192.168.43.152:8080/"
-axios.defaults.baseURL = "http://192.168.2.2:8080/"
+    // axios.defaults.baseURL = "http://192.168.2.2:8080/"
+axios.defaults.baseURL = "http://192.168.2.2:9090/"
     // axios.defaults.baseURL = "http://192.168.43.152:8080/"
 axios.defaults.headers.post['Content-Type'] = "application/json"
 Vue.prototype.$http = axios
