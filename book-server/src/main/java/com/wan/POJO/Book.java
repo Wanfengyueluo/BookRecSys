@@ -9,10 +9,10 @@ import java.io.Serializable;
  * @date 2021/3/22 20:17
  */
 @Document(collection = "Book")
-//@org.springframework.data.elasticsearch.annotations.Document(
-//		indexName = "es-book",
-//		type = "book",
-//		refreshInterval = "-1")
+@org.springframework.data.elasticsearch.annotations.Document(
+		indexName = "es-book",
+		type = "book",
+		refreshInterval = "-1")
 public class Book implements Serializable {
 	private Object id;
 	private Integer bookId;
